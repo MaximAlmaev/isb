@@ -1,7 +1,7 @@
 from files_work import *
 
 
-def char_frequency(text: str) -> list:
+def char_frequency(text: str) -> None:
     """
     Составляет частотный анализ текста
     :param text: текст, частотный анализ которого нужно составить
@@ -19,7 +19,6 @@ def char_frequency(text: str) -> list:
         quantity[i] /= len(text)
     quantity = sorted(quantity.items(), key=lambda item: item[1], reverse=True)
     print(quantity)
-    return quantity
 
 
 def decrypt(key: dict, text: str) -> str:

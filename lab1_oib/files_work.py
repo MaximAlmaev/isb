@@ -8,7 +8,7 @@ def read_txt_file(filename: str) -> str:
     :return: считанные данные из файла
     """
     try:
-        with open(filename, "r") as file:
+        with open(filename, "r", encoding="utf-8") as file:
             return file.read()
     except FileNotFoundError as exc:
         print("File not found, ", exc)
@@ -25,7 +25,7 @@ def write_txt_file(filename: str, text: str) -> None:
     :param text: данные для записи в файл
     """
     try:
-        with open(filename, "w") as file:
+        with open(filename, "w", encoding="utf-8") as file:
             file.write(text)
     except PermissionError as exc:
         print("File access denied, ", exc)
