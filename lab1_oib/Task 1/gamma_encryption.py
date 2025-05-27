@@ -1,40 +1,7 @@
 from files_work import *
-alphabeth = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
 
 
-def write_txt_files(filename: str, text: str) -> None:
-    """
-    Записывает данные в txt файл
-    :param filename: название файла в формате txt
-    :param text: данные для записи в файл
-    """
-    try:
-        with open(filename, "w") as file:
-            file.write(text)
-    except PermissionError as exc:
-        print("File access denied, ", exc)
-    except Exception as exc:
-        print("Error reading from file, ", exc)
-
-
-def read_txt_files(filename: str) -> str:
-    """
-    Считывает данные из txt файла
-    :param filename: название файла в формате txt
-    :return: считанные данные из файла
-    """
-    try:
-        with open(filename, "r") as file:
-            return file.read()
-    except FileNotFoundError as exc:
-        print("File not found, ", exc)
-    except PermissionError as exc:
-        print("File access denied, ", exc)
-    except Exception as exc:
-        print("Error reading from file, ", exc)
-
-
-def encrypt(text: str, gamma: str) -> None:
+def encrypt(text: str, gamma: str, alphabeth: str) -> str:
     """
     Шифрует текст с помощью метода гамма-шифрования
     :param text: текст, которы требуется
@@ -55,10 +22,10 @@ def encrypt(text: str, gamma: str) -> None:
             code.append(alphabeth[(text_index + gamma_index) % len(alphabeth)])
 
     result = ''.join(code)
-    write_txt_files("encrypt_text.txt", result)
+    return result
 
 
-def decrypt(encrypt_text: str, gamma: str) -> None:
+def decrypt(encrypt_text: str, gamma: str, alphabeth: str) -> str:
     text_len = len(encrypt_text)
     gamma_len = len(gamma)
 
@@ -75,15 +42,20 @@ def decrypt(encrypt_text: str, gamma: str) -> None:
 
             code.append(alphabeth[(text_index - gamma_index) % len(alphabeth)])
     result = ''.join(code)
-    write_txt_files("decrypt_file.txt", result)
+    return result;
 
 
 def main() -> None:
-    text = read_txt_files("original_text.txt")
-    gamma = read_txt_file("gamma.txt")
-    encrypt(text, gamma)
-    encrypt_text = read_txt_files("encrypt_text.txt")
-    decrypt(encrypt_text, gamma)
+    settings = read_json_file('settings.json')
+    text = read_txt_file(settings['original_text_path'])
+    gamma = read_txt_file(settings['gamma_path'])
+    alphabeth = read_txt_file(settings['alphabeth_path'])
+    result = encrypt(text, gamma, alphabeth)
+    write_txt_file(settings['encrypted_text_path'], result)
+    encrypt_text = read_txt_file(settings['encrypted_text_path'])
+    result2 = decrypt(encrypt_text, gamma, alphabeth)
+    write_txt_file(settings['decrypted_text_path'], result2)
+
 
 
 if __name__ == "__main__":
