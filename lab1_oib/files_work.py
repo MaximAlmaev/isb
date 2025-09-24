@@ -39,8 +39,12 @@ def read_json_file(filename: str) -> dict:
     :param filename: название файла в формате json
     :return: считанные данные из файла
     """
-    if filename is not None:
-        with open(filename, "r", encoding="utf-8") as file:
-            return json.load(file)
-    else:
-        raise FileNotFoundError("File not found")
+    try:
+        if filename is not None:
+            with open(filename, "r", encoding="utf-8") as file:
+                    data = json.load(file)
+    except PermissionError as exc:
+        print("File access denied, ", exc)
+    except Exception as exc:
+        print("Error reading from file, ", exc)
+    return data

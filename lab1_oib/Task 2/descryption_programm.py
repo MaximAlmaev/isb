@@ -36,11 +36,12 @@ def decrypt(key: dict, text: str) -> str:
 
 
 def main() -> None:
-    text = read_txt_file("code2.txt")
+    settings = read_json_file("settings.json")
+    text = read_txt_file(settings["code_text"])
     char_frequency(text)
     key = read_json_file("decrypt_key.json")
     new_text = decrypt(key, text)
-    write_txt_file("new_text.txt", new_text)
+    write_txt_file(settings["new_text"], new_text)
 
 
 if __name__ == "__main__":

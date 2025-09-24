@@ -42,14 +42,14 @@ def decrypt(encrypt_text: str, gamma: str, alphabeth: str) -> str:
 
             code.append(alphabeth[(text_index - gamma_index) % len(alphabeth)])
     result = ''.join(code)
-    return result;
+    return result
 
 
 def main() -> None:
     settings = read_json_file('settings.json')
     text = read_txt_file(settings['original_text_path'])
     gamma = read_txt_file(settings['gamma_path'])
-    alphabeth = read_txt_file(settings['alphabeth_path'])
+    alphabeth = read_json_file(settings['alphabeth'])
     result = encrypt(text, gamma, alphabeth)
     write_txt_file(settings['encrypted_text_path'], result)
     encrypt_text = read_txt_file(settings['encrypted_text_path'])
