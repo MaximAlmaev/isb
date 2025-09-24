@@ -1,0 +1,7 @@
+{
+  "alphabeth": "абвгдеёжзийклмнопрстуфхцчшщъыьэюя",
+  "original_text_path": "original_text.txt",
+  "gamma_path": "gamma.txt",
+  "encrypted_text_path": "encrypt_text.txt",
+  "decrypted_text_path": "decrypt_text.txt",
+}
