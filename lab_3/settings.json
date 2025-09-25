@@ -1,0 +1,6 @@
+{
+    "path_sym_key" : "sym_key.txt",
+    "path_private_key" : "private_key.pem",
+    "path_public_key" : "public_key.pem",
+    "num_of_bit" : 128
+}
