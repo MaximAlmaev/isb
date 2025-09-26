@@ -1,6 +1,11 @@
 import java.security.SecureRandom;
 
 public class RandomBinary {
+    /**
+     * Generates a 128-bit random binary sequence
+     *
+     * @param args Command line arguments (not used)
+     */
     public static void main(String[] args) {
         SecureRandom random = new SecureRandom();
         StringBuilder binary = new StringBuilder();

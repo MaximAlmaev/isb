@@ -1,6 +1,9 @@
 #include <iostream>
 #include <random>
 
+/**
+ * Generates and prints random binary a sequence of length 128
+*/
 int main() {
     std::random_device rd;
     std::mt19937_64 gen(rd());

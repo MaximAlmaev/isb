@@ -25,6 +25,15 @@ def read_json(filename: str) -> list:
         return []
 
 def return_arr(seq):
+    """
+    Преобразует с строковую бинарную последовательность в бинарную последовательность float
+
+    Args:
+        seq: Строковая бинарная последовательность
+
+    Returns:
+        numeric_arr: последовательность единиц и нулей с типами float
+    """
     numeric_arr = []
     for item in seq:
         try:
