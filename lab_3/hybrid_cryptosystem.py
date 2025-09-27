@@ -182,11 +182,16 @@ class Modes:
         key_length = settings["num_of_bit"]
         if not key_length in [128, 192, 256]:
             raise ValueError(f"Неверная длина ключа, может быть 128, 192, 256, получено {key_length}")
+        print("Генерация симметричного ключа шифрования...")
         GenerationKey.gen_key_sym(key_length)
+        print("Генерация aссиметричных ключей шифрования...")
         private_key, public_key = GenerationKey.gen_key_asym()
+        print("Серилизация aссиметричных ключей шифрования...")
         SerelizationKey.ser_private_key(private_key, path_private_key)
         SerelizationKey.ser_public_key(public_key, path_public_key)
+        print("Шифрование публичного ключа...")
         Crypt.ass_crypt(public_key, path_sym_key)
+        print("Готово!")
 
     def data_encryption(path_sym_key: str, path_private_key: str, text_path: str, ctext_path: str, iv_path: str):
         """
@@ -199,8 +204,11 @@ class Modes:
             ctext_path (str): Путь для сохранения зашифрованного текста
             iv_path (str): Путь для сохранения вектора инициализации
         """
+        print("Распаковка ключа шифрования...")
         key = Crypt.ass_decrtpt(path_private_key, path_sym_key)
+        print("Шифрование текста...")
         Crypt.encrypt_camellia_text(text_path, key ,ctext_path, iv_path)
+        print("Готово!")
 
     def data_decryption(path_sym_key: str, path_private_key: str, ctext_path: str, dctext_path: str, iv_path: str):
         """
@@ -213,8 +221,11 @@ class Modes:
             dctext_path (str): Путь для сохранения расшифрованного текста
             iv_path (str): Путь к файлу с вектором инициализации
         """
+        print("Распаковка ключа шифрования...")
         key = Crypt.ass_decrtpt(path_private_key, path_sym_key)
+        print("Дешифровка текста...")
         Crypt.decrypt_camellia_text(ctext_path, key, iv_path, dctext_path)
+        print("Готово!")
     
 
         
