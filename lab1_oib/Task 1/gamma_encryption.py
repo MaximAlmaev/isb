@@ -1,4 +1,5 @@
 from files_work import *
+import argparse
 
 
 def encrypt(text: str, gamma: str, alphabeth: str) -> str:
@@ -46,13 +47,26 @@ def decrypt(encrypt_text: str, gamma: str, alphabeth: str) -> str:
 
 
 def main() -> None:
-    settings = read_json_file('settings.json')
+    parser = argparse.ArgumentParser(description='Загрузка настроек из JSON файла')
+    parser.add_argument(
+        'settings_file',
+        nargs='?',
+        default='settings.json',
+        help='Путь к JSON файлу с настройками (по умолчанию: settings.json)'
+    )
+    
+    args = parser.parse_args()
+    settings = read_json_file(args.settings_file)
+
     text = read_txt_file(settings['original_text_path'])
     gamma = read_txt_file(settings['gamma_path'])
     alphabeth = read_json_file(settings['alphabeth'])
+
     result = encrypt(text, gamma, alphabeth)
+
     write_txt_file(settings['encrypted_text_path'], result)
     encrypt_text = read_txt_file(settings['encrypted_text_path'])
+
     result2 = decrypt(encrypt_text, gamma, alphabeth)
     write_txt_file(settings['decrypted_text_path'], result2)
 

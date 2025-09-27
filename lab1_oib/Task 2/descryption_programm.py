@@ -1,4 +1,5 @@
 from files_work import *
+import argparse
 
 
 def char_frequency(text: str) -> None:
@@ -36,10 +37,30 @@ def decrypt(key: dict, text: str) -> str:
 
 
 def main() -> None:
-    settings = read_json_file("settings.json")
+    parser = argparse.ArgumentParser(description='Загрузка настроек из JSON файла')
+    parser.add_argument(
+        'settings_file',
+        nargs='?',
+        default='settings.json',
+        help='Путь к JSON файлу с настройками (по умолчанию: settings.json)'
+    )
+    parser.add_argument(
+        'key_file',
+        nargs='?',
+        default='decrypt_key.json',
+        help='Путь к JSON файлу с настройками (по умолчанию: decrypt_key.json)'
+    )
+
+
+    
+    args = parser.parse_args()
+    settings = read_json_file(args.settings_file)
+
     text = read_txt_file(settings["code_text"])
     char_frequency(text)
-    key = read_json_file("decrypt_key.json")
+
+    key = read_json_file(args.key_file)
+
     new_text = decrypt(key, text)
     write_txt_file(settings["new_text"], new_text)
 
